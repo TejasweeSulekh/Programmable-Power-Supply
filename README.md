@@ -1,5 +1,5 @@
 # Programmable-Power-Supply
-## EE 344 2022 Spring
+## Electronic Design Lab - Spring Semester 2022 - Indian Institute of Technology
 ## Prof Joseph John, Prof Shiladri Chakraborty & Prof Siddharth Tallur
 
 Made by
