@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\main.obj" 
+TO ".\Objects\digipot_test" 
+PRINT(".\Listings\digipot_test.m51") RAMSIZE(256) 

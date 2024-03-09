@@ -1,0 +1,263 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    03/25/2023  17:18:09  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\STARTUP.obj, .\Objects\main.obj TO .\Objects\digipot_test PRINT (.\Listings\digipo
+>> t_test.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\STARTUP.obj (?C_STARTUP)
+  .\Objects\main.obj (MAIN)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C?ULSHR)
+
+
+LINK MAP OF MODULE:  .\Objects\digipot_test (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0004H     UNIT         ?DT?_SPI_TRX?MAIN
+            DATA    000CH     0004H     UNIT         _DATA_GROUP_
+            DATA    0010H     0003H     UNIT         ?DT?MAIN
+                    0013H     000DH                  *** GAP ***
+            BIT     0020H.0   0000H.1   UNIT         ?BI?MAIN
+                    0020H.1   0000H.7                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+                    0003H     0048H                  *** GAP ***
+            CODE    004BH     0003H     ABSOLUTE     
+                    004EH     07B2H                  *** GAP ***
+            CODE    0800H     008CH     UNIT         ?C_C51STARTUP
+            CODE    088CH     005CH     UNIT         ?PR?_SPI_TRX?MAIN
+            CODE    08E8H     001BH     UNIT         ?PR?_DIGIPOT_WRITE?MAIN
+            CODE    0903H     0016H     UNIT         ?PR?SPI_INTERRUPT?MAIN
+            CODE    0919H     0016H     UNIT         ?PR?MAIN?MAIN
+            CODE    092FH     0013H     UNIT         ?C?LIB_CODE
+            CODE    0942H     000CH     UNIT         ?PR?SPI_INIT?MAIN
+            CODE    094EH     000CH     UNIT         ?PR?_SPI_TRX_BYTE?MAIN
+            CODE    095AH     0003H     UNIT         ?PR?DIGIPOT_INIT?MAIN
+            CODE    095DH     0003H     UNIT         ?C_INITSEG
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\digipot_test (?C_STARTUP)
+
+
+SEGMENT                           DATA_GROUP 
+  +--> CALLED SEGMENT           START    LENGTH
+-----------------------------------------------
+?C_C51STARTUP                   -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  03/25/2023  17:18:09  PAGE 2
+
+
+
+?PR?MAIN?MAIN                   000CH    0004H
+  +--> ?PR?SPI_INIT?MAIN
+  +--> ?PR?DIGIPOT_INIT?MAIN
+  +--> ?PR?_DIGIPOT_WRITE?MAIN
+
+?PR?_DIGIPOT_WRITE?MAIN         -----    -----
+  +--> ?PR?_SPI_TRX_BYTE?MAIN
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\digipot_test (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        ?C_STARTUP
+  C:0800H         SEGMENT       ?C_C51STARTUP
+  I:0021H         SEGMENT       ?STACK
+  C:0000H         PUBLIC        ?C_STARTUP
+  D:00E0H         SYMBOL        ACC
+  D:00F0H         SYMBOL        B
+  D:0083H         SYMBOL        DPH
+  D:0082H         SYMBOL        DPL
+  N:0000H         SYMBOL        IBPSTACK
+  N:0100H         SYMBOL        IBPSTACKTOP
+  N:0080H         SYMBOL        IDATALEN
+  C:0803H         SYMBOL        IDATALOOP
+  N:0000H         SYMBOL        PBPSTACK
+  N:0100H         SYMBOL        PBPSTACKTOP
+  N:0000H         SYMBOL        PDATALEN
+  N:0000H         SYMBOL        PDATASTART
+  N:0000H         SYMBOL        PPAGE
+  N:0000H         SYMBOL        PPAGEENABLE
+  D:00A0H         SYMBOL        PPAGE_SFR
+  D:0081H         SYMBOL        SP
+  C:0800H         SYMBOL        STARTUP1
+  N:0000H         SYMBOL        XBPSTACK
+  N:0000H         SYMBOL        XBPSTACKTOP
+  N:0000H         SYMBOL        XDATALEN
+  N:0000H         SYMBOL        XDATASTART
+  C:0000H         LINE#         126
+  C:0800H         LINE#         133
+  C:0802H         LINE#         134
+  C:0803H         LINE#         135
+  C:0804H         LINE#         136
+  C:0806H         LINE#         185
+  C:0809H         LINE#         196
+  -------         ENDMOD        ?C_STARTUP
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  D:0090H         PUBLIC        P1
+  D:00A0H         PUBLIC        P2
+  D:00B0H         PUBLIC        P3
+  C:08E8H         PUBLIC        _digipot_write
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  03/25/2023  17:18:09  PAGE 3
+
+
+  D:00C0H         PUBLIC        P4
+  D:00C3H         PUBLIC        SPCON
+  B:00A8H.7       PUBLIC        EA
+  C:095AH         PUBLIC        digipot_init
+  D:00C4H         PUBLIC        SPSTA
+  D:00A8H         PUBLIC        IEN0
+  C:088CH         PUBLIC        _spi_trx
+  D:00B1H         PUBLIC        IEN1
+  D:00B8H         PUBLIC        IPL0
+  B:0020H.0       PUBLIC        transmit_completed
+  C:0903H         PUBLIC        spi_interrupt
+  D:00D8H         PUBLIC        CCON
+  C:094EH         PUBLIC        _spi_trx_byte
+  C:0919H         PUBLIC        main
+  B:00B0H.1       PUBLIC        cs_digipot
+  D:0098H         PUBLIC        SCON
+  D:0088H         PUBLIC        TCON
+  D:00F8H         PUBLIC        UEPINT
+  D:0010H         PUBLIC        command
+  D:0012H         PUBLIC        temp_spi_data
+  C:0942H         PUBLIC        spi_init
+  D:00C8H         PUBLIC        T2CON
+  D:00C5H         PUBLIC        SPDAT
+  -------         PROC          SPI_INIT
+  C:0942H         LINE#         34
+  C:0942H         LINE#         35
+  C:0942H         LINE#         55
+  C:0945H         LINE#         56
+  C:0948H         LINE#         57
+  C:094AH         LINE#         58
+  C:094DH         LINE#         59
+  -------         ENDPROC       SPI_INIT
+  -------         PROC          _SPI_TRX
+  D:0008H         SYMBOL        spi_data_tx
+  -------         DO            
+  D:0004H         SYMBOL        spi_data_rx
+  D:0001H         SYMBOL        spi_data_3
+  D:0003H         SYMBOL        spi_data_2
+  D:0005H         SYMBOL        spi_data_1
+  -------         ENDDO         
+  C:088CH         LINE#         67
+  C:0894H         LINE#         68
+  C:0894H         LINE#         74
+  C:0896H         LINE#         76
+  C:089EH         LINE#         78
+  C:08A1H         LINE#         79
+  C:08A3H         LINE#         82
+  C:08A5H         LINE#         83
+  C:08B4H         LINE#         85
+  C:08B7H         LINE#         86
+  C:08B9H         LINE#         89
+  C:08BBH         LINE#         90
+  C:08C0H         LINE#         92
+  C:08C3H         LINE#         93
+  C:08C5H         LINE#         95
+  C:08E7H         LINE#         97
+  C:08E7H         LINE#         98
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  03/25/2023  17:18:09  PAGE 4
+
+
+  -------         ENDPROC       _SPI_TRX
+  -------         PROC          _SPI_TRX_BYTE
+  D:0006H         SYMBOL        spi_data_tx
+  -------         DO            
+  D:0007H         SYMBOL        spi_data_rx
+  -------         ENDDO         
+  C:094EH         LINE#         99
+  C:094EH         LINE#         103
+  C:0950H         LINE#         105
+  C:0952H         LINE#         106
+  C:0955H         LINE#         107
+  C:0957H         LINE#         109
+  C:0959H         LINE#         112
+  -------         ENDPROC       _SPI_TRX_BYTE
+  -------         PROC          SPI_INTERRUPT
+  C:0903H         LINE#         121
+  C:0907H         LINE#         124
+  C:090FH         LINE#         125
+  C:090FH         LINE#         126
+  C:090FH         LINE#         127
+  C:0912H         LINE#         128
+  C:0914H         LINE#         129
+  C:0914H         LINE#         131
+  C:0914H         LINE#         133
+  C:0914H         LINE#         135
+  C:0914H         LINE#         136
+  C:0914H         LINE#         137
+  C:0914H         LINE#         138
+  -------         ENDPROC       SPI_INTERRUPT
+  -------         PROC          DIGIPOT_INIT
+  C:095AH         LINE#         21
+  C:095AH         LINE#         22
+  C:095AH         LINE#         23
+  C:095CH         LINE#         24
+  -------         ENDPROC       DIGIPOT_INIT
+  -------         PROC          _DIGIPOT_WRITE
+  D:0005H         SYMBOL        value
+  C:08E8H         LINE#         27
+  C:08EAH         LINE#         29
+  C:08F0H         LINE#         30
+  C:08F2H         LINE#         31
+  C:08F9H         LINE#         32
+  C:0900H         LINE#         33
+  C:0902H         LINE#         35
+  -------         ENDPROC       _DIGIPOT_WRITE
+  -------         PROC          MAIN
+  -------         DO            
+  D:000CH         SYMBOL        j
+  D:000EH         SYMBOL        adc_data
+  -------         ENDDO         
+  C:0919H         LINE#         9
+  C:0919H         LINE#         10
+  C:0919H         LINE#         11
+  C:091EH         LINE#         12
+  C:0922H         LINE#         15
+  C:0925H         LINE#         16
+  C:0928H         LINE#         20
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  03/25/2023  17:18:09  PAGE 5
+
+
+  C:0928H         LINE#         21
+  C:0928H         LINE#         26
+  C:092DH         LINE#         28
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        ?C?ULSHR
+  C:092FH         PUBLIC        ?C?ULSHR
+  -------         ENDMOD        ?C?ULSHR
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_SPI_TRX?MAIN
+
+******************************************************************************
+* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 00D2H BYTE (10%) *
+******************************************************************************
+
+Program Size: data=20.1 xdata=0 code=358
+LINK/LOCATE RUN COMPLETE.  1 WARNING(S),  0 ERROR(S)

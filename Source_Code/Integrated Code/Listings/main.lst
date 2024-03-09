@@ -1,0 +1,269 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              04/11/2023 15:13:30 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"
+   3          #include "keypad.h"
+   4          #include "MCP4162.h"                                    
+   5          #include "spi.h"
+   6          
+   7          int i=0;
+   8          int digits[4] = {0,0,0,0};
+   9          int digit = 0;
+  10          float req_voltage;
+  11          int req_res;
+  12          int digipot_val=25;
+  13          char digipot_val_string[6]={'0','0','0','0','0','\0'};
+  14          void main(void){
+  15   1        
+  16   1          lcd_init();
+  17   1          spi_init();
+  18   1          digipot_init();
+  19   1          //adc_init();
+  20   1          //IEN0=0x81;             // Enable INT0
+  21   1          //IT0=1;
+  22   1        
+  23   1      
+  24   1          while(1){
+  25   2            
+  26   2            if(i==5) {
+  27   3              lcd_cmd(0x0C);
+  28   3              req_voltage = digits[0]*10 + digits[1] + digits[3]/10.0;
+  29   3              //req_res = (15000*(req_voltage-1.25)/1.25) - 100000;
+  30   3              //digipot_val = 128*(99600-((15000*(req_voltage-1.25)/1.25) - 100000))/50100;
+  31   3              //digipot_val = (int)((17.6*req_voltage)-186); WE WERE USING THIS BEFORE!!!!!!!!!!
+  32   3              digipot_val = (int)(280 - (3058/req_voltage));
+  33   3              //int_to_string(digipot_val,digipot_val_string);
+  34   3              //lcd_write_string(digipot_val_string);
+  35   3              //msdelay(2000);
+  36   3              if(digipot_val<0) digipot_val = 0;
+  37   3              else if(digipot_val>255) digipot_val = 255;
+  38   3              
+  39   3              
+  40   3      //        lcd_write_char(digits[0]+'0');
+  41   3      //        lcd_write_char(digits[1]+'0');
+  42   3      //        lcd_write_char(digits[3]+'0');
+  43   3              //if(digipot_val>=162) lcd_write_char('Y');
+  44   3              i=0;
+  45   3              digipot_write(digipot_val);
+  46   3              msdelay(2000);
+  47   3              break;
+  48   3              //msdelay(5000);
+  49   3              
+  50   3              
+  51   3              //i=0;
+  52   3              //P1_4=1;
+  53   3              
+  54   3            }
+C51 COMPILER V9.60.0.0   MAIN                                                              04/11/2023 15:13:30 PAGE 2   
+
+  55   2      
+  56   2            R1=R2=R3=R4=0;
+  57   2            C1=C2=C3=1;
+  58   2        
+  59   2            if(C1==0){
+  60   3              int a = row_finder1();
+  61   3              digits[i]=a;
+  62   3              i=i+1;
+  63   3              
+  64   3            }
+  65   2            else if(C2==0){
+  66   3              int a = row_finder2();
+  67   3              digits[i]=a;
+  68   3              i=i+1;
+  69   3      
+  70   3            }
+  71   2            else if(C3==0){
+  72   3              int a = row_finder3();
+  73   3              digits[i]=a;
+  74   3              i=i+1;
+  75   3              
+  76   3            }
+  77   2        
+  78   2          }
+  79   1      //    
+  80   1      //    while(1){
+  81   1      //      
+  82   1      
+  83   1      //      R1=R2=R3=R4=0;
+  84   1      //      C1=C2=C3=1;
+  85   1      //  
+  86   1      //      if(C1==0){
+  87   1      //        int a = row_finder1();
+  88   1      //        if(a==1){
+  89   1      //          R1=R2=R3=R4=0;
+  90   1      //          C1=C2=C3=1;
+  91   1      //          if(C1==0){
+  92   1      //            int b = row_finder1();
+  93   1      //            digipot_val = 10*a+b;
+  94   1      //            digipot_write(digipot_val);
+  95   1      //              break;
+  96   1      //          }
+  97   1      
+  98   1      //        
+  99   1      //      }
+ 100   1      //    }
+ 101   1      //      else if(C2==0){
+ 102   1      //        int a = row_finder2();
+ 103   1      //        digipot_write(a);
+ 104   1      
+ 105   1      //      }
+ 106   1      //      else if(C3==0){
+ 107   1      //        int a = row_finder3();
+ 108   1      //        digipot_write(a);
+ 109   1      //        
+ 110   1      //      }
+ 111   1      //  
+ 112   1      //    }
+ 113   1        //lcd_in
+ 114   1        //lcd_init();
+ 115   1        //spi_init();                                         
+ 116   1        //digipot_init();
+C51 COMPILER V9.60.0.0   MAIN                                                              04/11/2023 15:13:30 PAGE 3   
+
+ 117   1        
+ 118   1      
+ 119   1        
+ 120   1      
+ 121   1      //  P1=0xF0;
+ 122   1      //  P1_7=0; P1_6=0;P1_5=0;P1_4=0;
+ 123   1        //while(1){
+ 124   1          
+ 125   1          //digipot_write(digipot_val);
+ 126   1          
+ 127   1          
+ 128   1      //    P1_5 = 0;
+ 129   1      //    msdelay(500);
+ 130   1      //    P1_5 =1;
+ 131   1      //    msdelay(500);
+ 132   1        //}
+ 133   1      
+ 134   1      }
+ 135          
+ 136          void ISR_ex0(void) interrupt 0 {
+ 137   1        
+ 138   1          lcd_init();
+ 139   1          spi_init();
+ 140   1          digipot_init();
+ 141   1          while(1){
+ 142   2            
+ 143   2            if(i==5) {
+ 144   3              lcd_cmd(0x0C);
+ 145   3              req_voltage = digits[0]*10 + digits[1] + digits[3]/10.0;
+ 146   3              req_res = (15000*(req_voltage-1.25)/1.25) - 100000;
+ 147   3              digipot_val = 128*(99600-((15000*(req_voltage-1.25)/1.25) - 100000))/50100;
+ 148   3              //int_to_string(digipot_val,digipot_val_string);
+ 149   3              //lcd_write_string(digipot_val_string);
+ 150   3              msdelay(2000);
+ 151   3              if(digipot_val<0) digipot_val = 0;
+ 152   3              else if(digipot_val>255) digipot_val = 255;
+ 153   3              
+ 154   3              
+ 155   3      //        lcd_write_char(digits[0]+'0');
+ 156   3      //        lcd_write_char(digits[1]+'0');
+ 157   3      //        lcd_write_char(digits[3]+'0');
+ 158   3              //if(digipot_val>=162) lcd_write_char('Y');
+ 159   3              //digipot_write(digipot_val);
+ 160   3              //break;
+ 161   3              //i=0;
+ 162   3              //P1_4=1;
+ 163   3              
+ 164   3            }
+ 165   2      
+ 166   2            R1=R2=R3=R4=0;
+ 167   2            C1=C2=C3=1;
+ 168   2        
+ 169   2            if(C1==0){
+ 170   3              int a = row_finder1();
+ 171   3              digits[i]=a;
+ 172   3              i=i+1;
+ 173   3              
+ 174   3            }
+ 175   2            else if(C2==0){
+ 176   3              int a = row_finder2();
+ 177   3              digits[i]=a;
+ 178   3              i=i+1;
+C51 COMPILER V9.60.0.0   MAIN                                                              04/11/2023 15:13:30 PAGE 4   
+
+ 179   3      
+ 180   3            }
+ 181   2            else if(C3==0){
+ 182   3              int a = row_finder3();
+ 183   3              digits[i]=a;
+ 184   3              i=i+1;
+ 185   3              
+ 186   3            }
+ 187   2        
+ 188   2            
+ 189   2      //      if(i==5) {
+ 190   2      //        lcd_cmd(0x0C);
+ 191   2      //        req_voltage = digits[0]*10 + digits[1] + digits[3]/10.0;
+ 192   2      //        req_res = (15000*(req_voltage-1.25)/1.25) - 100000;
+ 193   2      //        digipot_val = 128*(99600-req_res)/50100;
+ 194   2      
+ 195   2      //        if(digipot_val<0) digipot_val = 0;
+ 196   2      //        else if(digipot_val>255) digipot_val = 255;
+ 197   2      //        
+ 198   2      //        i=0;
+ 199   2      //        digipot_write(20);
+ 200   2      //        
+ 201   2      //        //P1_4=1;
+ 202   2      //        break;
+ 203   2      //      }
+ 204   2      
+ 205   2      //      R1=R2=R3=R4=0;
+ 206   2      //      C1=C2=C3=1;
+ 207   2      //  
+ 208   2      //      if(C1==0){
+ 209   2      //        int a = row_finder1();
+ 210   2      //        digits[i]=a;
+ 211   2      //        i=i+1;
+ 212   2      //        
+ 213   2      //      }
+ 214   2      //      else if(C2==0){
+ 215   2      //        int a = row_finder2();
+ 216   2      //        digits[i]=a;
+ 217   2      //        i=i+1;
+ 218   2      
+ 219   2      //      }
+ 220   2      //      else if(C3==0){
+ 221   2      //        int a = row_finder3();
+ 222   2      //        digits[i]=a;
+ 223   2      //        i=i+1;
+ 224   2      //        
+ 225   2      //      }
+ 226   2        
+ 227   2          }
+ 228   1          return;
+ 229   1      
+ 230   1                            
+ 231   1      }
+ 232          
+ 233          
+ 234           
+*** WARNING C291 IN LINE 47 OF main.c: not every exit path returns a value
+*** WARNING C291 IN LINE 83 OF main.c: not every exit path returns a value
+*** WARNING C291 IN LINE 112 OF main.c: not every exit path returns a value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+C51 COMPILER V9.60.0.0   MAIN                                                              04/11/2023 15:13:30 PAGE 5   
+
+   CODE SIZE        =   1436    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     31      20
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)
